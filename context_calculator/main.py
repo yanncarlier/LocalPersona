@@ -18,7 +18,7 @@ def main():
     print()
     
     # Initialize the personality engine
-    config_dir = Path("config")
+    config_dir = Path("../context_files")
     
     if not config_dir.exists():
         print(f"Error: Configuration directory '{config_dir}' not found.")

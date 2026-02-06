@@ -35,7 +35,7 @@ class ConversationState:
 
 class PersonalityEngine:
     """
-    Main engine for managing AI personality with progressive disclosure.
+    Main engine for managing OS Agent personality with progressive disclosure.
     """
     
     def __init__(self, config_dir: Path):

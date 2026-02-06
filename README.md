@@ -30,7 +30,7 @@ LocalPersonais designed to simulate a sophisticated AI assistant with:
 ## Project Structure
 
 ```
-LocalOS Agent/
+OSAgent/
 ├── main.py                    # Main entry point
 ├── OS Agent_engine.py      # Core engine with progressive disclosure logic
 ├── cli_interface.py           # Interactive CLI interface
@@ -57,8 +57,8 @@ LocalOS Agent/
 #### Option 1: Using `uv` (Recommended)
 
 ```bash
-gir clone git@github.com:yanncarlier/LocalOS Agent.git
-cd LocalOS Agent
+gir clone git@github.com:yanncarlier/OSAgent.git
+cd OSAgent Agent
 
 # Initialize and activate virtual environment
 uv venv
@@ -73,7 +73,7 @@ uv pip install -r requirements.txt
 #### Option 2: Using `pip`
 
 ```bash
-cd LocalOS Agent
+cd OSAgent
 
 # Create virtual environment
 python3 -m venv .venv
@@ -111,7 +111,7 @@ Simply type any message to query the AI:
 
 ```
 You: What can you do?
-AI: Processing with X relevant context(s)...
+OSAgent: Processing with X relevant context(s)...
 ```
 
 #### System Commands

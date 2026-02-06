@@ -1,5 +1,5 @@
 """
-Command-line interface for the personality engine.
+Command-line interface for progressive disclosure OS Agent engine config.
 Provides interactive chat and management commands.
 """
 
@@ -15,14 +15,14 @@ init(autoreset=True)
 
 
 class CLIInterface:
-    """Command-line interface for interacting with the personality engine."""
+    """Command-line interface for interacting with the OS Agent engine config."""
     
     def __init__(self, engine: PersonalityEngine):
         """
         Initialize the CLI interface.
         
         Args:
-            engine: PersonalityEngine instance
+            engine: OSAgent instance
         """
         self.engine = engine
         self.running = True
@@ -57,9 +57,9 @@ class CLIInterface:
     def print_welcome(self):
         """Print welcome message."""
         print(f"\n{Fore.GREEN}{'=' * 60}")
-        print(f"{Fore.GREEN}Welcome to the AI Personality System!")
+        print(f"{Fore.GREEN}Welcome to the OS Agent engine config system!")
         print(f"{Fore.GREEN}{'=' * 60}{Style.RESET_ALL}")
-        print("\nType your messages to interact with the AI.")
+        print("\nType your messages to interact with the OS Agent.")
         print("Commands:")
         print("  /status    - Show current context status")
         print("  /load <context> - Manually load a context")
@@ -73,7 +73,7 @@ class CLIInterface:
     
     def print_goodbye(self):
         """Print goodbye message."""
-        print(f"\n{Fore.YELLOW}Thank you for using the AI Personality System!")
+        print(f"\n{Fore.YELLOW}Thank you for using the OS Agent engine config system!")
         print(f"Goodbye!{Style.RESET_ALL}\n")
     
     def handle_command(self, command: str):

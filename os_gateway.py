@@ -59,7 +59,7 @@ def execute_os_command(cmd_list):
 def main():
     print("--- Llama OS Bridge Active ---")
     
-    user_goal = input("\nWhat should the Agent do?: ")
+    user_goal = input("\nWhat should the OS Agent do?: ")
     
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
@@ -72,7 +72,7 @@ def main():
         ai_response = call_llama(messages)
         messages.append({"role": "assistant", "content": ai_response})
         
-        print(f"\n[AI]: {ai_response}")
+        print(f"\n[OS Agent]: {ai_response}")
 
         if ai_response.startswith("FINISH:"):
             break
