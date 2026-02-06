@@ -48,7 +48,7 @@ class PersonalityEngine:
         self.config_dir = Path(config_dir)
         self.contexts: Dict[str, ContextLayer] = {}
         self.state = ConversationState()
-        self.token_budget = 8000  # Maximum tokens for context
+        self.token_budget = 32768  # Maximum tokens for context
         self.current_token_usage = 0
         
         # Load all personality files
@@ -60,25 +60,30 @@ class PersonalityEngine:
     def _load_personality_files(self):
         """Load and parse all personality configuration files."""
         files_config = {
-            'AGENT.md': {
-                'priority': 2,
-                'keywords': {'behavior', 'response', 'interaction', 'guidelines'}
-            },
+
             'IDENTITY.md': {
                 'priority': 1,  # Highest priority - always loaded
                 'keywords': {'name', 'identity', 'core', 'who', 'what'}
             },
-            'TOOLS.md': {
-                'priority': 4,
-                'keywords': {'tool', 'function', 'capability', 'can', 'execute'}
+            'AGENT.md': {
+                'priority': 2,
+                'keywords': {'behavior', 'response', 'interaction', 'guidelines'}
             },
             'SOUL.md': {
                 'priority': 3,
                 'keywords': {'values', 'ethics', 'beliefs', 'principles', 'philosophy'}
             },
+            'TOOLS.md': {
+                'priority': 4,
+                'keywords': {'tool', 'function', 'capability', 'can', 'execute'}
+            },            
             'HEARTBEAT.md': {
                 'priority': 5,
                 'keywords': {'emotion', 'feel', 'empathy', 'mood', 'emotional'}
+            },
+            'SKILL.md': {
+                'priority': 6,
+                'keywords': {'skill', 'expertise', 'ability', 'knowledge', 'proficiency'}
             }
         }
         
