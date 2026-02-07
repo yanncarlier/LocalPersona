@@ -12,11 +12,11 @@ API_URL = "http://localhost:8080/v1/chat/completions"
 # Improved Prompt: Encourages the AI to summarize findings for the human
 SYSTEM_PROMPT = """You are an OS Agent. You have access to the user's computer.
 To run a command, you MUST use the following format:
-RUN_COMMAND: ["command", "arg1", "arg2"]
+RUN_COMMAND: ["command"] or RUN_COMMAND: ["command", "arg1"] or RUN_COMMAND: ["command", "arg1", "arg2", ...] (commands can have zero, one, multiple, or any number of arguments)
 
 After a command runs, I will give you the output. You should:
 1. Analyze the output.
-2. If you need more info, run another command.
+2. If you need more info, explain it to the user and STOP waiting for input.
 3. If you have the answer, explain it to the user and start with 'FINISH:'."""
 
 def call_llama(messages):
@@ -57,9 +57,24 @@ def execute_os_command(cmd_list):
         return {"code": -1, "stdout": "", "stderr": str(e)}
 
 def main():
-    print("--- Llama OS Bridge Active ---")
-    
-    user_goal = input("\nWhat should the OS Agent do?: ")
+    print("")
+    print(    "      XXXXX      "         )
+    print(    "    X       X    "         )
+    print(    "   X  O   O  X   "         )
+    print(    "   X    ^    X   "         )
+    print(    "   X  \\___/ X   "         )
+    print(    "    X       X    "         )
+    print(    "      XXXXX      "         )
+          
+
+
+
+
+
+
+
+
+    user_goal = input("\nHow can I hellp you?: ")
     
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
@@ -91,13 +106,16 @@ def main():
                 
                 # We print it here so YOU can see it
                 if result['stdout']:
-                    print(f"--- STDOUT ---\n{result['stdout']}")
+                    print(f"[RESPONSE]:{result['stdout']}")
                 if result['stderr']:
-                    print(f"--- STDERR ---\n{result['stderr']}")
+                    print(f"[ERROR]:{result['stderr']}")
                 
                 # 4. Feed back to AI
                 result_str = f"Exit Code: {result['code']}\nSTDOUT: {result['stdout']}\nSTDERR: {result['stderr']}"
                 messages.append({"role": "user", "content": f"COMMAND RESULT:\n{result_str}"})
+                
+                # 5. Wait for user input before proceeding (condition 2)
+                input("\n[OS Agent]: ")
                 
             except Exception as e:
                 msg = f"Error: Could not parse or run command. {e}"
