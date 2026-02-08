@@ -41,12 +41,20 @@ class OSAgentOrchestrator:
                         match = re.search(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
                         if match:
                             meta = yaml.safe_load(match.group(1))
-                            meta['path'] = path
-                            # Fallback: use filename if no triggers are defined
-                            if 'triggers' not in meta:
-                                meta['triggers'] = [filename.split('.')[0].lower()]
-                            
-                            self.registry[meta.get('name', filename)] = meta
+                        else:
+                            # Create default metadata if no YAML frontmatter
+                            meta = {}
+                        
+                        meta['path'] = path
+                        # Set name from YAML or use filename
+                        if 'name' not in meta:
+                            meta['name'] = filename.split('.')[0]
+                        # Set triggers from YAML or use filename as fallback
+                        if 'triggers' not in meta:
+                            meta['triggers'] = [filename.split('.')[0].lower()]
+                        
+                        self.registry[meta.get('name')] = meta
+                        print(f"[+] Loaded: {meta['name']} (triggers: {meta['triggers']})")
                 except Exception as e:
                     print(f"[!] Error parsing {filename}: {e}")
 
