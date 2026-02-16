@@ -11,6 +11,11 @@ from typing import List, Dict, Optional
 API_URL = "http://localhost:8080/v1/chat/completions"
 MODEL_TEMPERATURE = 0.1
 
+# AUTOMATION CONTROL
+# Set to True to bypass user confirmation for command execution.
+# Set to False to require manual approval (Y/N) for every command.
+MODEL_AUTOMATION = False 
+
 # --- EMBEDDED KNOWLEDGE BASE (Originally bash_pro.md) ---
 # This dictionary replaces the external file loading mechanism.
 # It acts as the agent's long-term memory for specific domains.
@@ -129,6 +134,7 @@ def run_agentic_session():
 
     print("\n--- AGENTIC BASH TERMINAL READY ---")
     print(f"Target API: {API_URL}")
+    print(f"Automation Mode: {'ON' if MODEL_AUTOMATION else 'OFF'}")
     print("Type 'exit' to quit.\n")
     
     # Conversation History
@@ -184,9 +190,15 @@ def run_agentic_session():
             if match:
                 cmd = match.group(1).strip()
                 
-                # Human-in-the-loop confirmation
                 print(f"\n[?] Agent requests execution: \033[93m{cmd}\033[0m")
-                confirm = input("[y/n] > ").lower()
+                
+                # --- AUTOMATION LOGIC START ---
+                if MODEL_AUTOMATION:
+                    print(f"[!] AUTOMATION MODE: Executing automatically...")
+                    confirm = 'y'
+                else:
+                    confirm = input("[y/n] > ").lower()
+                # --- AUTOMATION LOGIC END ---
                 
                 execution_result = ""
                 if confirm == 'y':
